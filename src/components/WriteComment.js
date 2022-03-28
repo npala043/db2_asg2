@@ -3,7 +3,7 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-const WritePost = (props) => {
+const WriteComment = (props) => {
 
     const style = {
         position: 'absolute',
@@ -22,13 +22,13 @@ const WritePost = (props) => {
         <Modal open={props.isOpen} onClose={props.toggleModal}>
             <Box component="form" sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Write a post
+                    Write a Comment
                 </Typography>
-                <TextField fullWidth id="outlined-basic" label="Post" variant="outlined" />
+                <TextField fullWidth id="outlined-basic" label="Comment" variant="outlined" />
             </Box>
         </Modal>
     )
 
 }
 
-export default WritePost;
+export default WriteComment;

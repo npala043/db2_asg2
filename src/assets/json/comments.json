@@ -1,0 +1,20 @@
+[
+    {
+        "commentid": 1,
+        "postid": 1,
+        "userid": 2,
+        "text": "This is the very first comment!"
+    },
+    {
+        "commentid": 2,
+        "postid": 2,
+        "userid": 1,
+        "text": "This is another comment!"
+    },
+    {
+        "commentid": 3,
+        "postid": 2,
+        "userid": 3,
+        "text": "This is a follow-up comment"
+    }
+]

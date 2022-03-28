@@ -21,3 +21,10 @@ body {
 #outlined-basic {
   padding-top: 1em;
 }
+
+/* Comment CSS */
+.comment-box {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+}
