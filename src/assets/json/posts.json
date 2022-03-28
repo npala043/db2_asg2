@@ -1,6 +1,16 @@
-{
-    "post-id": 1,
-    "timestamp": "2022-03-23T04:09:13+0000",
-    "user-id": 1,
-    "text": "This is the very first post!"
-}
+[
+    {
+        "postid": 1,
+        "timestamp": "2022-03-23T04:09:13+0000",
+        "userid": 1,
+        "text": "This is the very first post!",
+        "comments": [1]
+    },
+    {
+        "postid": 2,
+        "timestamp": "2022-03-23T04:09:13+0000",
+        "userid": 2,
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent aliquam suscipit ante a rutrum. Quisque dapibus ac orci sit amet luctus. Phasellus ultrices libero ac risus placerat, quis rutrum felis rutrum. Suspendisse eu suscipit tortor, sed facilisis lorem. Pellentesque tristique dignissim dolor, quis convallis tortor. Quisque posuere justo neque, vel porttitor libero euismod ut. Sed dictum fermentum erat, quis molestie ex luctus sit amet. Fusce quis justo in orci auctor congue vitae eget dolor.",
+        "comments": [2]
+    }
+]

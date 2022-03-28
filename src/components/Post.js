@@ -1,10 +1,20 @@
+import { useState } from 'react';
+import { styled } from '@mui/material/styles';
+
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
+import Collapse from '@mui/material/Collapse';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+
+import CommentBox from './CommentBox';
+
+import users from '../assets/json/users.json';
+import { Badge } from '@mui/material';
 
 // avatar custom colour
 // stringToColor and stringAvatar taken from https://mui.com/components/avatars/
@@ -37,13 +47,34 @@ function stringAvatar(name) {
     };
 }
 
+const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', { duration: theme.transitions.duration.shortest, }),
+}));
+
 const Post = (props) => {
+
+    const [expanded, setExpanded] = useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+
+    const getUsername = () => {
+        const u = users.filter(user => user.userid === props.userid);
+        return u[0].username;
+    }
+
     return (
         <div class="postCard">
             <Card sx={{ minWidth: 275 }}>
                 <CardHeader
-                    avatar={<Avatar {...stringAvatar(props.username)} />}
-                    title={props.username}
+                    avatar={<Avatar {...stringAvatar(getUsername())} />}
+                    title={getUsername()}
                     subheader={props.date}
                 />
                 <CardContent>
@@ -52,10 +83,19 @@ const Post = (props) => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Comments</Button>
+                    <ExpandMore expand={expanded} onClick={handleExpandClick}>
+                        <Badge badgeContent={props.comments.length} color={'primary'}>
+                            <ExpandMoreIcon />
+                        </Badge>
+                    </ExpandMore>
                 </CardActions>
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <CardContent>
+                        <CommentBox comments={props.comments} />
+                    </CardContent>
+                </Collapse>
             </Card>
-        </div>
+        </div >
     )
 }
 
