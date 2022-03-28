@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 
+import AddIcon from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Collapse from '@mui/material/Collapse';
+import EditIcon from '@mui/icons-material/Edit';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -14,7 +17,8 @@ import Typography from '@mui/material/Typography';
 import CommentBox from './CommentBox';
 
 import users from '../assets/json/users.json';
-import { Badge } from '@mui/material';
+import { Badge, Fab } from '@mui/material';
+import WriteComment from './WriteComment';
 
 // avatar custom colour
 // stringToColor and stringAvatar taken from https://mui.com/components/avatars/
@@ -58,6 +62,14 @@ const ExpandMore = styled((props) => {
 
 const Post = (props) => {
 
+    // modal to write comment
+    const [isOpen, toggle] = useState(false);
+
+    const toggleModal = () => {
+        toggle(!isOpen);
+    }
+
+    // collapse for comments
     const [expanded, setExpanded] = useState(false);
 
     const handleExpandClick = () => {
@@ -82,7 +94,10 @@ const Post = (props) => {
                         {props.text}
                     </Typography>
                 </CardContent>
-                <CardActions>
+                <CardActions disableSpacing>
+                    <Button>
+                        <EditIcon />
+                    </Button>
                     <ExpandMore expand={expanded} onClick={handleExpandClick}>
                         <Badge badgeContent={props.comments.length} color={'primary'}>
                             <ExpandMoreIcon />
@@ -91,10 +106,16 @@ const Post = (props) => {
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        <CommentBox comments={props.comments} />
+                        <CommentBox comments={props.comments} stringAvatar={stringAvatar} stringToColor={stringToColor} />
                     </CardContent>
+                    <CardActions>
+                        <Fab onClick={toggleModal} size='medium'>
+                            <AddIcon />
+                        </Fab>
+                    </CardActions>
                 </Collapse>
             </Card>
+            {isOpen ? <WriteComment isOpen={isOpen} toggleModal={toggleModal} /> : null}
         </div >
     )
 }
