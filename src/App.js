@@ -1,4 +1,3 @@
-import { LoremIpsum } from 'react-lorem-ipsum';
 import { useState } from 'react';
 
 import './App.css';
@@ -29,7 +28,7 @@ const App = () => {
         </Fab>
       </div>
       {isOpen ? <WritePost isOpen={isOpen} toggleModal={toggleModal} /> : null}
-      {posts.length == 0 ?
+      {posts.length === 0 ?
         <h2 id='no-post'>No posts to display</h2>
         :
         posts.map(p => <Post key={p.postid} userid={p.userid} text={p.text} date={p.timestamp} comments={comments.filter(c => c.postid === p.postid)} />)}

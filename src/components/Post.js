@@ -76,18 +76,20 @@ const Post = (props) => {
         setExpanded(!expanded);
     };
 
-    const getUsername = () => {
-        const u = users.filter(user => user.userid === props.userid);
-        return u[0].username;
-    }
+    const username = users.filter(user => user.userid === props.userid)[0].username;
 
     return (
         <div class="postCard">
             <Card sx={{ minWidth: 275 }}>
                 <CardHeader
-                    avatar={<Avatar {...stringAvatar(getUsername())} />}
-                    title={getUsername()}
+                    avatar={<Avatar {...stringAvatar(username)} />}
+                    title={username}
                     subheader={props.date}
+                    action={
+                        <Button>
+                            <EditIcon />
+                        </Button>
+                    }
                 />
                 <CardContent>
                     <Typography variant="body1" color="black">
@@ -95,28 +97,26 @@ const Post = (props) => {
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                    <Button>
-                        <EditIcon />
-                    </Button>
-                    <ExpandMore expand={expanded} onClick={handleExpandClick}>
-                        <Badge badgeContent={props.comments.length} color={'primary'}>
-                            <ExpandMoreIcon />
-                        </Badge>
-                    </ExpandMore>
+                    <Fab onClick={toggleModal} size='medium'>
+                        <AddIcon />
+                    </Fab>
+                    {/* if no comments, don't display expand button */}
+                    {props.comments.length === 0 ? null :
+                        <ExpandMore expand={expanded} onClick={handleExpandClick}>
+                            <Badge badgeContent={props.comments.length} color={'primary'}>
+                                <ExpandMoreIcon />
+                            </Badge>
+                        </ExpandMore>
+                    }
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                         <CommentBox comments={props.comments} stringAvatar={stringAvatar} stringToColor={stringToColor} />
                     </CardContent>
-                    <CardActions>
-                        <Fab onClick={toggleModal} size='medium'>
-                            <AddIcon />
-                        </Fab>
-                    </CardActions>
                 </Collapse>
             </Card>
             {isOpen ? <WriteComment isOpen={isOpen} toggleModal={toggleModal} /> : null}
-        </div >
+        </div>
     )
 }
 
