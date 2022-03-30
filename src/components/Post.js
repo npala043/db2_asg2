@@ -51,14 +51,15 @@ function stringAvatar(name) {
     };
 }
 
-const ExpandMore = styled((props) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', { duration: theme.transitions.duration.shortest, }),
-}));
+const ExpandMore =
+    styled((props) => {
+        const { expand, ...other } = props;
+        return <IconButton {...other} />;
+    })(({ theme, expand }) => ({
+        transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', { duration: theme.transitions.duration.shortest, }),
+    }));
 
 const Post = (props) => {
 
@@ -76,10 +77,10 @@ const Post = (props) => {
         setExpanded(!expanded);
     };
 
-    const username = users.filter(user => user.userid === props.userid)[0].username;
+    const username = users.filter(u => u.userid === props.userid)[0].username;
 
     return (
-        <div class="postCard">
+        <div className="postCard">
             <Card sx={{ minWidth: 275 }}>
                 <CardHeader
                     avatar={<Avatar {...stringAvatar(username)} />}

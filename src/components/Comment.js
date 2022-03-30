@@ -1,7 +1,6 @@
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import EditIcon from '@mui/icons-material/Edit';
@@ -22,18 +21,17 @@ const Comment = (props) => {
             <CardHeader
                 avatar={<Avatar {...props.stringAvatar(getCommentUsername())} />}
                 title={getCommentUsername()}
+                action={
+                    <Button>
+                        <EditIcon />
+                    </Button>
+                }
             />
             <CardContent>
                 <Typography variant="body1" color="black">
                     {props.comment}
                 </Typography>
             </CardContent>
-            <CardActions>
-                {/* This is where the edit comment button goes */}
-                <Button>
-                    <EditIcon />
-                </Button>
-            </CardActions>
         </Card>
     )
 }

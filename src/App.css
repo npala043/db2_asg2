@@ -14,12 +14,16 @@ body {
 /* Post CSS */
 
 .postCard {
-  margin: 3em;
+  margin: 2em;
 }
 
 /* Write a post modal */
-#outlined-basic {
-  padding-top: 1em;
+#modal-modal-title {
+  margin-bottom: 0.5em;
+}
+
+.MuiOutlinedInput-root {
+  margin-bottom: 1em;
 }
 
 /* Comment CSS */

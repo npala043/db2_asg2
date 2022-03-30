@@ -1,4 +1,7 @@
+import { useState } from 'react';
+
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -18,13 +21,30 @@ const WritePost = (props) => {
         p: 4,
     };
 
+    const [postUser, updatePostUser] = useState("");
+
+    const [postText, updatePostText] = useState("");
+
+    const handleChange = (e) => {
+        if (e.currentTarget.name === "user")
+            updatePostUser(e);
+        else if (e.currentTarget.name === "post")
+            updatePostText(e);
+    }
+    const submitPost = () => {
+        console.log(`user is ${postUser} and text is ${postText}`);
+        props.toggleModal();
+    }
+
     return (
         <Modal open={props.isOpen} onClose={props.toggleModal}>
             <Box component="form" sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     Write a post
                 </Typography>
-                <TextField fullWidth id="outlined-basic" label="Post" variant="outlined" />
+                <TextField fullWidth id="outlined-basic-name" label="Name" name="user" variant="outlined" onChange={handleChange} />
+                <TextField fullWidth id="outlined-basic-post" label="Post" name="post" variant="outlined" onChange={handleChange} />
+                <Button onClick={submitPost} >Submit</Button>
             </Box>
         </Modal>
     )
