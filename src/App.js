@@ -17,8 +17,7 @@ const App = () => {
   const axios = require('axios');
 
   axios.get(url)
-    .then(response => response.json())
-    .then(data => console.log(data));
+    .then(response => console.log(response.data));
 
   const [posts] = useState(postsjson);
 
