@@ -12,6 +12,14 @@ import comments from './assets/json/comments.json';
 
 const App = () => {
 
+  const url = "https://db2-asg2.azurewebsites.net/api/posts/0";
+
+  const axios = require('axios');
+
+  axios.get(url)
+    .then(response => response.json())
+    .then(data => console.log(data));
+
   const [posts] = useState(postsjson);
 
   const [isOpen, toggle] = useState(false);
