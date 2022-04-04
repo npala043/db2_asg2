@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-import Box from '@mui/material/Box';
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-const WriteComment = (props) => {
+const EditComment = (props) => {
 
     const style = {
         position: 'absolute',
@@ -21,8 +21,6 @@ const WriteComment = (props) => {
         p: 4,
     };
 
-    const axios = require('axios');
-
     const [commentText, updateCommentText] = useState("");
 
     const handleChange = (e) => {
@@ -30,24 +28,22 @@ const WriteComment = (props) => {
     }
 
     const submitComment = () => {
-        console.log(`text is ${commentText}`);
-        axios.post("https://db2-asg2.azurewebsites.net/api/comments/%7Bid%7D",
+        const axios = require('axios');
+        axios.put(`https://db2-asg2.azurewebsites.net/api/comments/${props.commentid}`,
             {
-                userid: (Math.floor(Math.random() * 5) + 1),
-                postid: props.postid,
                 text: commentText
             })
             .then(response => window.location.reload())
-        props.toggleModal();
+        props.toggleCommentModal();
     }
 
     return (
-        <Modal open={props.isOpen} onClose={props.toggleModal}>
+        <Modal open={props.editCommentIsOpen} onClose={props.toggleEditComment}>
             <Box component="form" sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Write a Comment
+                    Edit a comment
                 </Typography>
-                <TextField fullWidth id="outlined-basic" label="Comment" variant="outlined" onChange={handleChange} />
+                <TextField fullWidth id="outlined-basic-post" label="Post" name="post" variant="outlined" onChange={handleChange} />
                 <Button onClick={submitComment} >Submit</Button>
             </Box>
         </Modal>
@@ -55,4 +51,4 @@ const WriteComment = (props) => {
 
 }
 
-export default WriteComment;
+export default EditComment;

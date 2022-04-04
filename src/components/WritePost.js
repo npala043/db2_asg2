@@ -21,18 +21,25 @@ const WritePost = (props) => {
         p: 4,
     };
 
-    const [postUser, updatePostUser] = useState("");
-
     const [postText, updatePostText] = useState("");
 
     const handleChange = (e) => {
-        if (e.currentTarget.name === "user")
-            updatePostUser(e);
-        else if (e.currentTarget.name === "post")
-            updatePostText(e);
+        updatePostText(e.target.value);
     }
+
     const submitPost = () => {
-        console.log(`user is ${postUser} and text is ${postText}`);
+        const now = new Date();
+        const minutes = now.getMinutes() < 10 ? "0" + now.getMinutes() : now.getMinutes();
+
+        const axios = require('axios');
+        axios.post("https://db2-asg2.azurewebsites.net/api/posts/%7Bid%7D",
+            {
+                userid: (Math.floor(Math.random() * 5) + 1),
+                text: postText,
+                comments: [],
+                timestamp: `${now.toDateString()} - ${now.getHours()}:${minutes}`
+            })
+            .then(response => window.location.reload())
         props.toggleModal();
     }
 
@@ -42,7 +49,6 @@ const WritePost = (props) => {
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     Write a post
                 </Typography>
-                <TextField fullWidth id="outlined-basic-name" label="Name" name="user" variant="outlined" onChange={handleChange} />
                 <TextField fullWidth id="outlined-basic-post" label="Post" name="post" variant="outlined" onChange={handleChange} />
                 <Button onClick={submitPost} >Submit</Button>
             </Box>

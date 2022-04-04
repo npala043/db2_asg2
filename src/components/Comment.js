@@ -1,30 +1,44 @@
+import { useState } from 'react';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Typography from '@mui/material/Typography';
 
-import users from '../assets/json/users.json';
+import EditComment from './EditComment';
 
 const Comment = (props) => {
 
-    const getCommentUsername = () => {
-        const u = users.filter(user => user.userid === props.userid);
-        console.log(u);
-        return u[0].username;
+    const [editCommentIsOpen, toggleEditComment] = useState(false);
+
+    const toggleCommentModal = () => {
+        toggleEditComment(!editCommentIsOpen);
+    }
+
+    const deleteComment = () => {
+        const axios = require('axios');
+        axios.delete(`https://db2-asg2.azurewebsites.net/api/comments/${props.commentid}`)
+            .then(response => window.location.reload());
     }
 
     return (
         <Card sx={{ bgcolor: '#e3e3e3' }}>
             <CardHeader
-                avatar={<Avatar {...props.stringAvatar(getCommentUsername())} />}
-                title={getCommentUsername()}
+                avatar={<Avatar {...props.stringAvatar(props.username)} />}
+                title={props.username}
                 action={
-                    <Button>
-                        <EditIcon />
-                    </Button>
+                    <div>
+                        <Button>
+                            <EditIcon onClick={toggleCommentModal} />
+                        </Button>
+                        <Button>
+                            <DeleteIcon onClick={deleteComment} />
+                        </Button>
+                    </div>
                 }
             />
             <CardContent>
@@ -32,6 +46,7 @@ const Comment = (props) => {
                     {props.comment}
                 </Typography>
             </CardContent>
+            {editCommentIsOpen ? <EditComment editCommentIsOpen={editCommentIsOpen} toggleCommentModal={toggleCommentModal} commentid={props.commentid} /> : null}
         </Card>
     )
 }
