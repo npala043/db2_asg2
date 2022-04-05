@@ -82,7 +82,7 @@ const Post = (props) => {
     }
 
     return (
-        <div class="postCard">
+        <div className="postCard">
             <Card sx={{ minWidth: 275 }}>
                 <CardHeader
                     avatar={<Avatar {...stringAvatar(getUsername())} />}
