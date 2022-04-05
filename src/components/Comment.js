@@ -46,7 +46,7 @@ const Comment = (props) => {
                     {props.comment}
                 </Typography>
             </CardContent>
-            {editCommentIsOpen ? <EditComment editCommentIsOpen={editCommentIsOpen} toggleCommentModal={toggleCommentModal} commentid={props.commentid} /> : null}
+            {editCommentIsOpen ? <EditComment editCommentIsOpen={editCommentIsOpen} toggleCommentModal={toggleCommentModal} commentid={props.commentid} text={props.comment} /> : null}
         </Card>
     )
 }

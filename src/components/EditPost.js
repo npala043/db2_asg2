@@ -21,19 +21,21 @@ const EditPost = (props) => {
         p: 4,
     };
 
-    const [postText, updatePostText] = useState("");
+    const [postText, updatePostText] = useState(props.text);
 
     const handleChange = (e) => {
         updatePostText(e.target.value);
     }
 
     const submitPost = () => {
-        const axios = require('axios');
-        axios.put(`https://db2-asg2.azurewebsites.net/api/posts/${props.postid}`,
-            {
-                text: postText
-            })
-            .then(response => window.location.reload())
+        if (postText !== props.text) {
+            const axios = require('axios');
+            axios.put(`https://db2-asg2.azurewebsites.net/api/posts/${props.postid}`,
+                {
+                    text: postText
+                })
+                .then(response => window.location.reload())
+        }
         props.toggleEditModal();
     }
 
@@ -43,7 +45,7 @@ const EditPost = (props) => {
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     Edit a post
                 </Typography>
-                <TextField fullWidth id="outlined-basic-post" label="Post" name="post" variant="outlined" onChange={handleChange} />
+                <TextField fullWidth id="outlined-basic-post" label="Post" name="post" variant="outlined" onChange={handleChange} defaultValue={props.text} />
                 <Button onClick={submitPost} >Submit</Button>
             </Box>
         </Modal>

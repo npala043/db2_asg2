@@ -21,19 +21,21 @@ const EditComment = (props) => {
         p: 4,
     };
 
-    const [commentText, updateCommentText] = useState("");
+    const [commentText, updateCommentText] = useState(props.text);
 
     const handleChange = (e) => {
         updateCommentText(e.target.value);
     }
 
     const submitComment = () => {
-        const axios = require('axios');
-        axios.put(`https://db2-asg2.azurewebsites.net/api/comments/${props.commentid}`,
-            {
-                text: commentText
-            })
-            .then(response => window.location.reload())
+        if (commentText !== props.text) {
+            const axios = require('axios');
+            axios.put(`https://db2-asg2.azurewebsites.net/api/comments/${props.commentid}`,
+                {
+                    text: commentText
+                })
+                .then(response => window.location.reload())
+        }
         props.toggleCommentModal();
     }
 
@@ -43,7 +45,7 @@ const EditComment = (props) => {
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     Edit a comment
                 </Typography>
-                <TextField fullWidth id="outlined-basic-post" label="Post" name="post" variant="outlined" onChange={handleChange} />
+                <TextField fullWidth id="outlined-basic-post" label="Comment" name="Comment" variant="outlined" onChange={handleChange} defaultValue={props.text}/>
                 <Button onClick={submitComment} >Submit</Button>
             </Box>
         </Modal>

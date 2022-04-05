@@ -135,7 +135,7 @@ const Post = (props) => {
                 </Collapse>
             </Card>
             {isOpen ? <WriteComment isOpen={isOpen} toggleModal={toggleModal} postid={props.postid} /> : null}
-            {editPostIsOpen ? <EditPost editPostIsOpen={editPostIsOpen} toggleEditModal={toggleEditModal} postid={props.postid} /> : null}
+            {editPostIsOpen ? <EditPost editPostIsOpen={editPostIsOpen} toggleEditModal={toggleEditModal} postid={props.postid} text={props.text} /> : null}
         </div>
     )
 }
